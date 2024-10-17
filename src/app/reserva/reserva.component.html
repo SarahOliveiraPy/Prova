@@ -1,0 +1,48 @@
+<form [formGroup]="reservaForm" (ngSubmit)="enviarReserva()">
+  <div>
+    <label for="destino">Destino:</label>
+    <select formControlName="destino">
+      <option value="">Selecione um destino</option>
+      <option *ngFor="let destino of destinos" [value]="destino">{{ destino }}</option>
+    </select>
+    <div *ngIf="f['destino'].invalid && (f['destino'].dirty || f['destino'].touched)">
+      <small>O destino é obrigatório.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="dataIda">Data de Ida:</label>
+    <input type="date" formControlName="dataIda" />
+    <div *ngIf="f['dataIda'].invalid && (f['dataIda'].dirty || f['dataIda'].touched)">
+      <small>A data de ida é obrigatória.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="dataVolta">Data de Volta:</label>
+    <input type="date" formControlName="dataVolta" />
+    <div *ngIf="f['dataVolta'].invalid && (f['dataVolta'].dirty || f['dataVolta'].touched)">
+      <small>A data de volta é obrigatória.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="numeroPassageiros">Número de Passageiros:</label>
+    <input type="number" formControlName="numeroPassageiros" min="1" max="5" />
+    <div *ngIf="f['numeroPassageiros'].invalid && (f['numeroPassageiros'].dirty || f['numeroPassageiros'].touched)">
+      <small *ngIf="f['numeroPassageiros'].errors?.['required']">O número de passageiros é obrigatório.</small>
+      <small *ngIf="f['numeroPassageiros'].errors?.['min'] || f['numeroPassageiros'].errors?.['max']">O número de passageiros deve estar entre 1 e 5.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">E-mail de Contato:</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+      <small *ngIf="f['email'].errors?.['required']">O e-mail é obrigatório.</small>
+      <small *ngIf="f['email'].errors?.['email']">Insira um e-mail válido.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="reservaForm.invalid">Enviar</button>
+</form>
